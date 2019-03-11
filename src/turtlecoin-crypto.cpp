@@ -101,6 +101,20 @@ std::string cn_fast_hash(std::string data)
   return hash;
 }
 
+std::string cn_turtle_lite_slow_hash_v2(std::string data)
+{
+  std::string hash;
+
+  const BinaryArray& rawData = Common::fromHex(data);
+
+  Crypto::Hash c_hash = Crypto::Hash();
+  Crypto::cn_turtle_lite_slow_hash_v2(rawData.data(), rawData.size(), c_hash);
+
+  hash = Common::podToHex(c_hash);
+
+  return hash;
+}
+
 std::string underivePublicKey(std::string derivation, size_t outputIndex, std::string derived_key)
 {
   Crypto::KeyDerivation c_derivation;
@@ -122,6 +136,7 @@ EMSCRIPTEN_BINDINGS(signatures)
   function("generate_keys", &generateKeys);
   function("generate_key_image", &generateKeyImage);
   function("cn_fast_hash", &cn_fast_hash);
+  function("cn_turtle_lite_slow_hash_v2", &cn_turtle_lite_slow_hash_v2);
   function("underivePublicKey", &underivePublicKey);
   
   register_vector<std::string>("VectorString");

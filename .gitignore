@@ -71,3 +71,4 @@ typings/
 
 # don't commit the emscripten repo 
 emsdk
+*.wasm
